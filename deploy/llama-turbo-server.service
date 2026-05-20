@@ -1,0 +1,36 @@
+[Unit]
+Description=llama.cpp TurboQuant HTTP server (Qwen3.6-35B-A3B-MTP-UD-IQ4_XS)
+After=network-online.target
+Wants=network-online.target
+StartLimitIntervalSec=300
+StartLimitBurst=5
+
+[Service]
+Type=simple
+# llama-server reads LLAMA_API_KEY from the environment (no --api-key needed)
+PassEnvironment=LLAMA_API_KEY
+WorkingDirectory=/home/b/repos/llama-cpp-turboquant
+ExecStart=/home/b/repos/llama-cpp-turboquant/build/bin/llama-server \
+  -hf unsloth/Qwen3.6-35B-A3B-GGUF:UD-IQ4_XS \
+  --no-mmproj \
+  -ngl 99 \
+  -c 200000 \
+  -np 1 \
+  --no-kv-offload \
+  -ctk q8_0 \
+  -ctv q8_0 \
+  -ctxcp 8 \
+  -fit off \
+  --reasoning on \
+  --host 0.0.0.0 \
+  --port 8080
+
+# Restart after crashes (non-zero exit, signals, timeouts). Not after manual stop.
+Restart=on-failure
+RestartSec=15
+
+# Optional extras (HF_TOKEN, CUDA vars) — one KEY=value per line
+# EnvironmentFile=-%h/.config/llama-server/env
+
+[Install]
+WantedBy=default.target

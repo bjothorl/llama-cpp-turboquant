@@ -11,19 +11,35 @@ Type=simple
 PassEnvironment=LLAMA_API_KEY
 WorkingDirectory=/home/b/repos/llama-cpp-turboquant
 ExecStart=/home/b/repos/llama-cpp-turboquant/build/bin/llama-server \
-  -hf unsloth/Qwen3.6-35B-A3B-GGUF:UD-IQ4_XS \
-  --no-mmproj \
-  -ngl 99 \
-  -c 200000 \
-  -np 1 \
-  --no-kv-offload \
-  -ctk q8_0 \
-  -ctv q8_0 \
-  -ctxcp 8 \
-  -fit off \
-  --reasoning on \
+#  -hf unsloth/Qwen3.6-27B-MTP-GGUF:UD-Q4_K_XL \
+  -hf unsloth/Qwen3.6-35B-A3B-MTP-GGUF:UD-IQ4_XS \
+# --temp 0.6 \
+# --top-p 0.95 \
+# --top-k 20 \
+# --presence-penalty 0.1 \
+# --min-p 0.00 \
+  --spec-type draft-mtp \
+  --spec-draft-n-max 2 \
   --host 0.0.0.0 \
-  --port 8080
+  --port 8080 \
+  -ngl 99 \
+  -fa on \
+  -c 131072 \
+  -np 1 \
+  -ctk turbo3 \
+  -ctv turbo3
+
+#  -hf unsloth/Qwen3.6-35B-A3B-MTP-GGUF:UD-IQ4_XS \
+#  --host 0.0.0.0 \
+#  --port 8080 \
+#  -ngl 99 \
+#  -fa on \
+#  -c 131072 \
+#  -np 1 \
+#  --spec-type draft-mtp \
+#  --spec-draft-n-max 2 \
+#  -ctk turbo3 \
+#  -ctv turbo3
 
 # Restart after crashes (non-zero exit, signals, timeouts). Not after manual stop.
 Restart=on-failure
@@ -31,6 +47,7 @@ RestartSec=15
 
 # Optional extras (HF_TOKEN, CUDA vars) — one KEY=value per line
 # EnvironmentFile=-%h/.config/llama-server/env
+GGML_CUDA_ENABLE_UNIFIED_MEMORY=1
 
 [Install]
 WantedBy=default.target

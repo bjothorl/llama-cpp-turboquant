@@ -1,0 +1,8 @@
+.env
+phase2_train/train.env
+data/
+adapters/
+models/
+phase4_eval/runs/
+__pycache__/
+*.pyc

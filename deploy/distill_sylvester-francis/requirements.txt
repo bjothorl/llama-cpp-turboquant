@@ -1,0 +1,30 @@
+# Versions pinned to combinations known to work together for Qwen3.5
+# QLoRA training on CUDA 12.x as of 2026-05.
+#
+# Install in a fresh venv:
+#   python3 -m venv ~/.venvs/distill-sf
+#   source ~/.venvs/distill-sf/bin/activate
+#   pip install --upgrade pip
+#   pip install -r deploy/distill_sylvester-francis/requirements.txt
+#
+# If torch wheels resolve to the wrong CUDA build, override with:
+#   pip install torch --index-url https://download.pytorch.org/whl/cu121
+
+torch>=2.4
+transformers>=4.46
+peft>=0.13
+trl>=0.12
+accelerate>=1.0
+bitsandbytes>=0.44
+datasets>=3.0
+sentencepiece>=0.2
+safetensors>=0.4
+
+# Conversion / GGUF tooling deps for convert_hf_to_gguf.py
+gguf>=0.10
+numpy>=1.26
+protobuf>=4.25
+
+# Convenience
+huggingface_hub>=0.26
+tqdm>=4.66

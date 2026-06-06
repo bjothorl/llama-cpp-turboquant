@@ -1,0 +1,6 @@
+**/generator.env
+**/verifier.env
+phase1/outputs/*
+!phase1/outputs/.gitkeep
+phase2/outputs/*
+!phase2/outputs/.gitkeep

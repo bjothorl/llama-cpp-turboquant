@@ -1,0 +1,10 @@
+{
+  "KodCode/KodCode-V1-SFT-4o": {
+    "revision": "14f8782fb7787c7e31dd4a1372518bc10fedb66e",
+    "license": "CC-BY-NC-4.0",
+    "license_note": "Non-commercial. OK for private/local stack per deploy/distill/PLAN.md; re-check before any public release.",
+    "split": "train",
+    "normalizer": "kodcode",
+    "uri": "https://huggingface.co/datasets/KodCode/KodCode-V1-SFT-4o"
+  }
+}

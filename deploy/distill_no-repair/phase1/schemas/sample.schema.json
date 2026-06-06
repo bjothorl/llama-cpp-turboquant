@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Phase 1 Distillation Sample",
+  "type": "object",
+  "required": [
+    "id",
+    "task_type",
+    "language",
+    "source",
+    "prompt",
+    "messages",
+    "reasoning",
+    "code",
+    "tests",
+    "verification",
+    "meta"
+  ],
+  "properties": {
+    "id": { "type": "string" },
+    "task_type": { "type": "string" },
+    "language": { "type": "string" },
+    "source": {
+      "type": "object",
+      "required": ["kind", "license", "uri"],
+      "properties": {
+        "kind": { "type": "string" },
+        "license": { "type": "string" },
+        "uri": { "type": ["string", "null"] }
+      },
+      "additionalProperties": true
+    },
+    "prompt": { "type": "string" },
+    "messages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["role", "content"],
+        "properties": {
+          "role": { "type": "string" },
+          "content": { "type": "string" }
+        },
+        "additionalProperties": true
+      }
+    },
+    "reasoning": { "type": "string" },
+    "code": { "type": "string" },
+    "tests": { "type": "string" },
+    "verification": {
+      "type": "object",
+      "required": ["compile", "lint", "tests", "score"],
+      "properties": {
+        "compile": { "type": ["object", "boolean", "null"] },
+        "lint": { "type": ["object", "boolean", "null"] },
+        "tests": { "type": ["object", "boolean", "null"] },
+        "score": { "type": ["number", "null"] }
+      },
+      "additionalProperties": true
+    },
+    "meta": {
+      "type": "object",
+      "required": ["teacher", "generated_at", "sampling", "turns"],
+      "properties": {
+        "teacher": { "type": "string" },
+        "generated_at": { "type": "string" },
+        "sampling": { "type": "object" },
+        "turns": { "type": "object" }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,27 @@
+[Unit]
+Description=llama.cpp agent router (planner 35B + executor 9B)
+After=network-online.target
+Wants=network-online.target
+StartLimitIntervalSec=300
+StartLimitBurst=5
+
+[Service]
+Type=simple
+PassEnvironment=LLAMA_API_KEY
+WorkingDirectory=/home/b/repos/llama-cpp-turboquant
+ExecStart=/home/b/repos/llama-cpp-turboquant/build/bin/llama-server \
+  --models-preset /home/b/repos/llama-cpp-turboquant/deploy/router/models.ini \
+  --models-max 1 \
+  --no-models-autoload \
+  --host 0.0.0.0 \
+  --port 8080
+
+Restart=on-failure
+RestartSec=15
+
+# Optional extras (HF_TOKEN, CUDA vars) — one KEY=value per line
+# EnvironmentFile=-%h/.config/llama-server/env
+Environment=GGML_CUDA_ENABLE_UNIFIED_MEMORY=1
+
+[Install]
+WantedBy=default.target

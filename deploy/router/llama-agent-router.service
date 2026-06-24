@@ -1,5 +1,5 @@
 [Unit]
-Description=llama.cpp agent router (planner 35B + executor 9B)
+Description=llama.cpp agent router (planner, executor, vibethinker3b)
 After=network-online.target
 Wants=network-online.target
 StartLimitIntervalSec=300
@@ -12,7 +12,6 @@ WorkingDirectory=/home/b/repos/llama-cpp-turboquant
 ExecStart=/home/b/repos/llama-cpp-turboquant/build/bin/llama-server \
   --models-preset /home/b/repos/llama-cpp-turboquant/deploy/router/models.ini \
   --models-max 1 \
-  --no-models-autoload \
   --host 0.0.0.0 \
   --port 8080
 

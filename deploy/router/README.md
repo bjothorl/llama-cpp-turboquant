@@ -6,8 +6,9 @@
 |----------|---------|------|
 | `planner` | Qwen3.6-35B-A3B-MTP `UD-IQ4_XS` | Planning |
 | `executor` | Qwen3.5-9B-MTP `UD-Q4_K_XL` | Parallel workers (`np=4`, 65k ctx/slot) |
+| `vibethinker3b` | VibeThinker-3B `i1-IQ4_XS` | Lightweight reasoning (Qwen2, no MTP) |
 
-Presets: [`models.ini`](models.ini). `--models-max 1` — only one model on GPU at a time (3090).
+Presets: [`models.ini`](models.ini). `--models-max 1` — only one model on GPU at a time (3090). Models autoload on first request (`"model": "planner"`, `"executor"`, or `"vibethinker3b"`).
 
 ## Install
 
@@ -33,13 +34,14 @@ journalctl --user -u llama-agent-router.service -f
 ## Remote API
 
 ```http
-POST /models/load        {"model":"planner"}
 POST /v1/chat/completions {"model":"planner", "messages":[...]}
-POST /models/unload      {"model":"planner"}
-POST /models/load        {"model":"executor"}
 POST /v1/chat/completions {"model":"executor", "messages":[...]}  (×N parallel)
-POST /models/unload      {"model":"executor"}
+POST /v1/chat/completions {"model":"vibethinker3b", "messages":[...]}
 ```
+
+Models autoload if not loaded. Loading one evicts the other (`--models-max 1`).
+
+Optional: `POST /models/unload {"model":"planner"}` to free GPU without chatting.
 
 `GET /models` — status per model. `GET /props` — `"role":"router"`.
 

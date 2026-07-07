@@ -1,5 +1,5 @@
 [Unit]
-Description=llama.cpp agent router (planner, executor, vibethinker3b)
+Description=llama.cpp agent router (planner, executor, vibethinker3b, gemma431b)
 After=network-online.target
 Wants=network-online.target
 StartLimitIntervalSec=300
